@@ -15,10 +15,8 @@
 			body {
 				padding: 50px;
 			}
-			ul {
-				list-style: none;
-			}
 			.puzzle {
+				list-style: none;
 				width: 410px;
 				height: 410px;
 				background: #000;
@@ -26,6 +24,7 @@
 				justify-content: space-evenly;
 				align-content: space-evenly;
 				flex-wrap: wrap;
+				user-select: none;
 			}
 			li {
 				width: 100px;
@@ -84,30 +83,59 @@
 	</head>
 	<body>
 		<ul class="puzzle">
-			<li class="pz1" data-id="1"></li>
-			<li class="pz2" data-id="2"></li>
-			<li class="pz3" data-id="3"></li>
-			<li class="pz4" data-id="4"></li>
-			<li class="pz5" data-id="5"></li>
-			<li class="pz6" data-id="6"></li>
-			<li class="pz7" data-id="7"></li>
-			<li class="pz8" data-id="8"></li>
-			<li class="pz9" data-id="9"></li>
-			<li class="pz10" data-id="10"></li>
-			<li class="pz11" data-id="11"></li>
-			<li class="pz12" data-id="12"></li>
-			<li class="pz13" data-id="13"></li>
-			<li class="pz14" data-id="14"></li>
-			<li class="pz15" data-id="15"></li>
-			<li class="pz16" data-id="16"></li>
+			<li class="pz1" data-id="0"></li>
+			<li class="pz2" data-id="1"></li>
+			<li class="pz3" data-id="2"></li>
+			<li class="pz4" data-id="3"></li>
+			<li class="pz5" data-id="4"></li>
+			<li class="pz6" data-id="5"></li>
+			<li class="pz7" data-id="6"></li>
+			<li class="pz8" data-id="7"></li>
+			<li class="pz9" data-id="8"></li>
+			<li class="pz10" data-id="9"></li>
+			<li class="pz11" data-id="10"></li>
+			<li class="pz12" data-id="11"></li>
+			<li class="pz13" data-id="12"></li>
+			<li class="pz14" data-id="13"></li>
+			<li class="pz15" data-id="14"></li>
+			<li class="pz16" data-id="15"></li>
 		</ul>
 	</body>
 
 	<script>
 		const puzzle = document.querySelector(".puzzle");
+		const emptyBox = document.querySelector(".pz16");
 
 		puzzle.addEventListener("click", (e) => {
-			console.log(e.target);
+			pzList = puzzle.children;
+			const emptyPos = Array.from(pzList).indexOf(emptyBox);
+			const targetPos = Array.from(pzList).indexOf(e.target);
+			const num = emptyPos - targetPos;
+
+			switch (num) {
+				case 1: {
+					// 빈칸이 오른쪽에 있을 때
+					puzzle.insertBefore(emptyBox, e.target);
+					break;
+				}
+				case -1: {
+					// 빈칸이 왼쪽에 있을 때
+					puzzle.insertBefore(e.target, emptyBox);
+					break;
+				}
+				case 4: {
+					// 빈칸이 아래에 있을 때
+					puzzle.insertBefore(emptyBox, e.target);
+					puzzle.insertBefore(e.target, pzList[emptyPos + 1]);
+					break;
+				}
+				case -4: {
+					// 빈칸이 위에 있을 때
+					puzzle.insertBefore(emptyBox, e.target);
+					puzzle.insertBefore(e.target, pzList[emptyPos]);
+					break;
+				}
+			}
 		});
 	</script>
 </html>
