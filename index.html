@@ -89,6 +89,8 @@
 		const puzzle = document.querySelector(".puzzle");
 		const pzList = puzzle.children;
 
+		let isDone = false;
+
 		puzzle.addEventListener("click", (e) => {
 			const emptyBox = document.querySelector(".pz16");
 
@@ -120,6 +122,8 @@
 					break;
 				}
 			}
+
+			checkIndex();
 		});
 
 		// 퍼즐리스트 생성
@@ -140,6 +144,23 @@
 
 			puzzle.innerHTML = "";
 			newList.map((li) => puzzle.append(li));
+		}
+
+		// 퍼즐 위치 확인
+		function checkIndex() {
+			Array.from(pzList).map((li) => {
+				const id = li.getAttribute("data-id");
+				const index = Array.from(pzList).indexOf(li);
+
+				if (+id === index) {
+					isDone = true;
+				} else {
+					isDone = false;
+				}
+			});
+			setTimeout(() => {
+				isDone && alert("성공!");
+			}, 0);
 		}
 
 		makePzList();
