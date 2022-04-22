@@ -82,32 +82,16 @@
 		</style>
 	</head>
 	<body>
-		<ul class="puzzle">
-			<li class="pz1" data-id="0"></li>
-			<li class="pz2" data-id="1"></li>
-			<li class="pz3" data-id="2"></li>
-			<li class="pz4" data-id="3"></li>
-			<li class="pz5" data-id="4"></li>
-			<li class="pz6" data-id="5"></li>
-			<li class="pz7" data-id="6"></li>
-			<li class="pz8" data-id="7"></li>
-			<li class="pz9" data-id="8"></li>
-			<li class="pz10" data-id="9"></li>
-			<li class="pz11" data-id="10"></li>
-			<li class="pz12" data-id="11"></li>
-			<li class="pz13" data-id="12"></li>
-			<li class="pz14" data-id="13"></li>
-			<li class="pz15" data-id="14"></li>
-			<li class="pz16" data-id="15"></li>
-		</ul>
+		<ul class="puzzle"></ul>
 	</body>
 
 	<script>
 		const puzzle = document.querySelector(".puzzle");
-		const emptyBox = document.querySelector(".pz16");
+		const pzList = puzzle.children;
 
 		puzzle.addEventListener("click", (e) => {
-			pzList = puzzle.children;
+			const emptyBox = document.querySelector(".pz16");
+
 			const emptyPos = Array.from(pzList).indexOf(emptyBox);
 			const targetPos = Array.from(pzList).indexOf(e.target);
 			const num = emptyPos - targetPos;
@@ -137,6 +121,29 @@
 				}
 			}
 		});
+
+		// 퍼즐리스트 생성
+		function makePzList() {
+			for (let i = 0; i < 16; i++) {
+				const li = document.createElement("li");
+
+				li.setAttribute("class", `pz${i + 1}`);
+				li.setAttribute("data-id", i);
+
+				puzzle.append(li);
+			}
+		}
+
+		// 퍼즐 랜덤 배치
+		function randomPos() {
+			const newList = Array.from(pzList).sort(() => Math.random() - 0.5);
+
+			puzzle.innerHTML = "";
+			newList.map((li) => puzzle.append(li));
+		}
+
+		makePzList();
+		randomPos();
 	</script>
 </html>
 
@@ -145,5 +152,6 @@
 	2. 15개의 이미지, 1개의 빈칸
 	3. 빈칸 옆에 위치한 이미지 클릭시 클릭한 이미지와 빈칸의 위치 변경
 	4. 16개의 박스 각자 고유의 위치값, 실시간 위치값 필요
-	5. 16개 모두 고유의 위치값으로 이동되면 성공
+	5. 퍼즐 랜덤 배치
+	6. 16개 모두 고유의 위치값으로 이동되면 성공
 -->
