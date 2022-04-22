@@ -99,8 +99,6 @@
 		const puzzle = document.querySelector(".puzzle");
 		const pzList = puzzle.children;
 
-		let isDone = false;
-
 		puzzle.addEventListener("click", (e) => {
 			const emptyBox = document.querySelector(".pz16");
 
@@ -158,23 +156,26 @@
 
 		// 퍼즐 위치 확인
 		function checkIndex() {
+			const result = [];
+
 			Array.from(pzList).map((li) => {
 				const id = li.getAttribute("data-id");
 				const index = Array.from(pzList).indexOf(li);
 
 				if (+id === index) {
-					isDone = true;
+					result.push(true);
 				} else {
-					isDone = false;
+					result.push(false);
 				}
 			});
+
 			setTimeout(() => {
-				isDone && alert("성공!");
+				result.indexOf(false) === -1 && alert("성공!");
 			}, 0);
 		}
 
 		makePzList();
-		randomPos();
+		// randomPos();
 	</script>
 </html>
 
