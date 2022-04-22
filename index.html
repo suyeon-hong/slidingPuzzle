@@ -15,6 +15,10 @@
 			body {
 				padding: 50px;
 			}
+			.wrapper {
+				display: flex;
+				gap: 50px;
+			}
 			.puzzle {
 				list-style: none;
 				width: 410px;
@@ -79,10 +83,16 @@
 			.pz16 {
 				background: #555;
 			}
+			img {
+				border: 2px solid #000;
+			}
 		</style>
 	</head>
 	<body>
-		<ul class="puzzle"></ul>
+		<div class="wrapper">
+			<ul class="puzzle"></ul>
+			<img src="./bg.jpg" alt="완성이미지" />
+		</div>
 	</body>
 
 	<script>
