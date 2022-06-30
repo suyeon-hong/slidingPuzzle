@@ -7,6 +7,11 @@
 		<title>슬라이딩퍼즐</title>
 
 		<style>
+			:root {
+				--puzzle-wrap: 410px;
+				--size-puzzle: 100px;
+				--position-puzzle: -100px;
+			}
 			* {
 				padding: 0;
 				margin: 0;
@@ -17,12 +22,13 @@
 			}
 			.wrapper {
 				display: flex;
+				justify-content: center;
 				gap: 50px;
 			}
 			.puzzle {
 				list-style: none;
-				width: 410px;
-				height: 410px;
+				width: var(--puzzle-wrap);
+				height: var(--puzzle-wrap);
 				background: #000;
 				display: flex;
 				justify-content: space-evenly;
@@ -31,15 +37,15 @@
 				user-select: none;
 			}
 			li {
-				width: 100px;
-				height: 100px;
+				width: var(--size-puzzle);
+				height: var(--size-puzzle);
 				background-image: url(./bg.jpg);
 			}
 			.pz1 {
 				background-position: top 0 left 0;
 			}
 			.pz2 {
-				background-position: top 0 left -100px;
+				background-position: top 0 left var(--position-puzzle);
 			}
 			.pz3 {
 				background-position: top 0 left -200px;
@@ -48,22 +54,23 @@
 				background-position: top 0 left -300px;
 			}
 			.pz5 {
-				background-position: top -100px left 0;
+				background-position: top var(--position-puzzle) left 0;
 			}
 			.pz6 {
-				background-position: top -100px left -100px;
+				background-position: top var(--position-puzzle) left
+					var(--position-puzzle);
 			}
 			.pz7 {
-				background-position: top -100px left -200px;
+				background-position: top var(--position-puzzle) left -200px;
 			}
 			.pz8 {
-				background-position: top -100px left -300px;
+				background-position: top var(--position-puzzle) left -300px;
 			}
 			.pz9 {
 				background-position: top -200px left 0;
 			}
 			.pz10 {
-				background-position: top -200px left -100px;
+				background-position: top -200px left var(--position-puzzle);
 			}
 			.pz11 {
 				background-position: top -200px left -200px;
@@ -75,7 +82,7 @@
 				background-position: top -300px left 0;
 			}
 			.pz14 {
-				background-position: top -300px left -100px;
+				background-position: top -300px left var(--position-puzzle);
 			}
 			.pz15 {
 				background-position: top -300px left -200px;
@@ -84,7 +91,24 @@
 				background: #555;
 			}
 			img {
+				width: var(--puzzle-wrap);
+				height: var(--puzzle-wrap);
 				border: 2px solid #000;
+			}
+
+			@media screen and (max-width: 1200px) {
+				.wrapper {
+					flex-direction: column;
+					align-items: center;
+				}
+			}
+
+			@media screen and (max-width: 540px) {
+				:root {
+					--puzzle-wrap: 280px;
+					--size-puzzle: calc(270px / 4);
+					--position-puzzle: calc(-270px / 4);
+				}
 			}
 		</style>
 	</head>
@@ -175,7 +199,7 @@
 		}
 
 		makePzList();
-		// randomPos();
+		randomPos();
 	</script>
 </html>
 
